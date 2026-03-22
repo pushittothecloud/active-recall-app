@@ -308,7 +308,7 @@ const Screens = {
                     ></textarea>
                 </div>
 
-                <button class="btn btn-primary" onclick="App.goToScreen('saveSession')">
+                <button class="btn btn-primary" onclick="App.saveReflection(); App.goToScreen('saveSession')">
                     Finish Session
                 </button>
             </div>
