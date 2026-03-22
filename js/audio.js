@@ -101,17 +101,30 @@ const Audio = {
 
     // Text-to-speech
     speak(text) {
-        if (!this.soundEnabled) return;
+        if (!('speechSynthesis' in window)) {
+            console.log('Speech synthesis not supported');
+            return;
+        }
         
-        // Cancel any ongoing speech
-        speechSynthesis.cancel();
-        
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.rate = 1;
-        utterance.pitch = 1;
-        utterance.volume = 0.8;
-        
-        speechSynthesis.speak(utterance);
+        try {
+            // Cancel any ongoing speech
+            speechSynthesis.cancel();
+            
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 0.9;
+            utterance.pitch = 1;
+            utterance.volume = 1;
+            
+            // Use the first available voice
+            const voices = speechSynthesis.getVoices();
+            if (voices.length > 0) {
+                utterance.voice = voices[0];
+            }
+            
+            speechSynthesis.speak(utterance);
+        } catch (e) {
+            console.log('Speech synthesis error:', e);
+        }
     }
 };
 
