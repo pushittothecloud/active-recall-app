@@ -26,10 +26,19 @@ const Reminders = {
         const start = formatDate(startDate);
         const end = formatDate(endDate);
         
-        const title = `Review: ${topic}`;
+        // Extract first question if weakPointText contains questions
+        let questionSnippet = '';
+        if (weakPointText && weakPointText.length > 0) {
+            const firstQuestion = weakPointText.split('\n')[0].trim();
+            if (firstQuestion && firstQuestion.length < 50) {
+                questionSnippet = ` — ${firstQuestion}`;
+            }
+        }
+        
+        const title = `🧠 Review: ${topic}${questionSnippet}`;
         const description = weakPointText 
-            ? `Weak points to review:\n${weakPointText}` 
-            : 'Recall what you studied earlier.';
+            ? `Weak points to review:\n${weakPointText}\n\nReviewing just before you forget makes memories last much longer.` 
+            : 'Recall what you studied earlier. Spaced reviews strengthen long-term memory.';
         
         const params = new URLSearchParams({
             action: 'TEMPLATE',

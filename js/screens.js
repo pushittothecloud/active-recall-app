@@ -54,18 +54,36 @@ const Screens = {
                         </button>
                     ` : ''}
 
-                    <!-- Science Principles -->
+                    <!-- Science Principles with Tooltips -->
                     <div style="background: var(--card-bg); border-radius: 12px; padding: var(--spacing-lg); border: 1px solid var(--border-light); box-shadow: var(--shadow-sm);">
                         <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: var(--spacing-md); font-weight: 600;">🧠 Why This Works</div>
                         <div style="display: flex; flex-direction: column; gap: var(--spacing-md); font-size: 0.9rem; color: var(--text-dark); line-height: 1.6;">
-                            <div>
-                                <strong style="color: var(--primary);">Recalling</strong> strengthens memory more than rereading—even if you get it wrong.
+                            <div style="display: flex; align-items: flex-start; gap: 0.5rem;">
+                                <div style="flex: 1;">
+                                    <strong style="color: var(--primary);">Recalling</strong> strengthens memory more than rereading—even if you get it wrong.
+                                </div>
+                                <div class="tooltip-wrapper">
+                                    <span class="tooltip-icon">?</span>
+                                    <span class="tooltip-text">Trying to recall strengthens memory more than rereading.</span>
+                                </div>
                             </div>
-                            <div>
-                                <strong style="color: var(--primary);">Struggle</strong> improves retention. If it feels hard, you'll remember better.
+                            <div style="display: flex; align-items: flex-start; gap: 0.5rem;">
+                                <div style="flex: 1;">
+                                    <strong style="color: var(--primary);">Struggle</strong> improves retention. If it feels hard, you'll remember better.
+                                </div>
+                                <div class="tooltip-wrapper">
+                                    <span class="tooltip-icon">?</span>
+                                    <span class="tooltip-text">Effortful thinking helps information stick longer.</span>
+                                </div>
                             </div>
-                            <div>
-                                <strong style="color: var(--primary);">Spacing</strong> matters. You'll revisit weak points later to lock them in.
+                            <div style="display: flex; align-items: flex-start; gap: 0.5rem;">
+                                <div style="flex: 1;">
+                                    <strong style="color: var(--primary);">Spacing</strong> matters. You'll revisit weak points later to lock them in.
+                                </div>
+                                <div class="tooltip-wrapper">
+                                    <span class="tooltip-icon">?</span>
+                                    <span class="tooltip-text">Study → recall → review later is the most effective pattern.</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -178,10 +196,16 @@ const Screens = {
                     </div>
                 </div>
 
-                <!-- Science Tips (Always Visible) -->
+                <!-- Science Tips (Always Visible) with Tooltip -->
                 <div style="background: var(--light-bg); border-radius: 12px; padding: var(--spacing-md); border-left: 4px solid var(--primary);">
-                    <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: var(--spacing-sm); font-weight: 600;">💡 How Recall Works</div>
-                    <div style="display: flex; flex-direction: column; gap: var(--spacing-sm); font-size: 0.9rem; color: var(--text-dark); line-height: 1.5;">
+                    <div style="display: flex; align-items: center;">
+                        <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600;">💡 How Recall Works</div>
+                        <div class="tooltip-wrapper" style="margin-left: auto;">
+                            <span class="tooltip-icon">?</span>
+                            <span class="tooltip-text">Actively recalling builds stronger memory than passive review.</span>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: var(--spacing-sm); font-size: 0.9rem; color: var(--text-dark); line-height: 1.5; margin-top: var(--spacing-sm);">
                         <div>✓ Trying to recall strengthens memory more than rereading</div>
                         <div>✓ The harder you struggle, the better it sticks</div>
                         <div>✓ Getting it wrong builds better memory than easy reading</div>
@@ -309,12 +333,19 @@ const Screens = {
                 </div>
 
                 <div class="card mb-xl">
-                    <div class="card-title">📅 Add Reminders to Calendar</div>
+                    <div class="card-title" style="display: flex; align-items: center;">
+                        📅 Add Reminders to Calendar
+                        <div class="tooltip-wrapper" style="margin-left: auto;">
+                            <span class="tooltip-icon">?</span>
+                            <span class="tooltip-text">Reviewing just before you forget makes memories last much longer.</span>
+                        </div>
+                    </div>
                     <div style="display: flex; flex-direction: column; gap: var(--spacing-md); margin-top: var(--spacing-md);">
                         <div>
                             <label style="display: flex; align-items: center; gap: var(--spacing-sm); margin-bottom: var(--spacing-sm); font-weight: 500;">
                                 <input type="checkbox" id="reviewTomorrow" checked>
-                                Tomorrow
+                                <span style="flex: 1;">Tomorrow</span>
+                                <span style="font-size: 0.8rem; color: var(--text-muted); margin-right: 0.5rem;">Catch early forgetting</span>
                             </label>
                             <button class="btn btn-secondary btn-small" onclick="Reminders.openCalendarLink('${session.topic}', 1, '${weakPointText.replace(/'/g, "\\'")}')">
                                 + Add to Google Calendar
@@ -323,7 +354,8 @@ const Screens = {
                         <div>
                             <label style="display: flex; align-items: center; gap: var(--spacing-sm); margin-bottom: var(--spacing-sm); font-weight: 500;">
                                 <input type="checkbox" id="review3Days" checked>
-                                3 Days
+                                <span style="flex: 1;">3 Days</span>
+                                <span style="font-size: 0.8rem; color: var(--text-muted); margin-right: 0.5rem;">Strengthen memory</span>
                             </label>
                             <button class="btn btn-secondary btn-small" onclick="Reminders.openCalendarLink('${session.topic}', 3, '${weakPointText.replace(/'/g, "\\'")}')">
                                 + Add to Google Calendar
@@ -332,7 +364,8 @@ const Screens = {
                         <div>
                             <label style="display: flex; align-items: center; gap: var(--spacing-sm); margin-bottom: var(--spacing-sm); font-weight: 500;">
                                 <input type="checkbox" id="review1Week" checked>
-                                1 Week
+                                <span style="flex: 1;">1 Week</span>
+                                <span style="font-size: 0.8rem; color: var(--text-muted); margin-right: 0.5rem;">Lock it in</span>
                             </label>
                             <button class="btn btn-secondary btn-small" onclick="Reminders.openCalendarLink('${session.topic}', 7, '${weakPointText.replace(/'/g, "\\'")}')">
                                 + Add to Google Calendar
