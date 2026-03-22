@@ -17,30 +17,37 @@ const Audio = {
         }
     },
 
-    // Soft chime for timer end (gradually gets louder)
+    // Soft chime for timer end (gradually gets louder) with harmony
     chimeSuccess() {
         if (!this.soundEnabled || !this.audioContext) return;
         
         const now = this.audioContext.currentTime;
         const duration = 3; // 3 second crescendo
         
-        const osc = this.audioContext.createOscillator();
-        const gain = this.audioContext.createGain();
+        // Create a harmonious chord (C major: C, E, G)
+        const frequencies = [
+            { freq: 523.25 },  // C5
+            { freq: 659.25 },  // E5
+            { freq: 783.99 }   // G5
+        ];
         
-        osc.connect(gain);
-        gain.connect(this.audioContext.destination);
-        
-        // Ascending two-note chime (lower pitch for gentler sound)
-        osc.frequency.setValueAtTime(523.25, now); // C5
-        osc.frequency.setValueAtTime(659.25, now + 0.2); // E5
-        
-        // Start quiet and gradually increase (crescendo)
-        gain.gain.setValueAtTime(0.05, now);
-        gain.gain.linearRampToValueAtTime(0.15, now + duration);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + duration + 0.3);
-        
-        osc.start(now);
-        osc.stop(now + duration + 0.3);
+        frequencies.forEach(({ freq }) => {
+            const osc = this.audioContext.createOscillator();
+            const gain = this.audioContext.createGain();
+            
+            osc.connect(gain);
+            gain.connect(this.audioContext.destination);
+            
+            osc.frequency.setValueAtTime(freq, now);
+            
+            // Start quiet and gradually increase (crescendo)
+            gain.gain.setValueAtTime(0.05, now);
+            gain.gain.linearRampToValueAtTime(0.15, now + duration);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + duration + 0.3);
+            
+            osc.start(now);
+            osc.stop(now + duration + 0.3);
+        });
     },
 
     // Subtle click for navigation
