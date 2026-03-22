@@ -17,10 +17,79 @@ const App = {
         });
     },
 
+    // ========== PROGRESS BAR ==========
+    updateProgressBar() {
+        const progressContainer = document.getElementById('progressBarContainer');
+        const screenSequence = ['createSession', 'studyTimer', 'recall', 'reflection', 'saveSession'];
+        const currentIndex = screenSequence.indexOf(this.currentScreen);
+
+        // Show progress bar only during active session
+        if (screenSequence.includes(this.currentScreen)) {
+            progressContainer.style.display = 'block';
+
+            let progressPercent = 0;
+            let stepCount = 1;
+            let currentStep = 1;
+            let stepsHtml = '';
+
+            if (this.currentScreen === 'createSession') {
+                stepCount = 4;
+                currentStep = this.currentSessionStep + 1;
+                progressPercent = (currentStep / stepCount) * 100;
+            } else {
+                stepCount = screenSequence.length;
+                currentStep = currentIndex + 1;
+                progressPercent = (currentStep / stepCount) * 100;
+            }
+
+            // Generate step indicators
+            for (let i = 1; i <= stepCount; i++) {
+                const isCompleted = i < currentStep ? 'completed' : '';
+                const isActive = i === currentStep ? 'active' : '';
+                stepsHtml += `<div class="progress-step ${isActive} ${isCompleted}"></div>`;
+            }
+
+            // Determine phase name
+            let phaseName = '';
+            if (this.currentScreen === 'createSession') {
+                const stepNames = ['Topic', 'Prior Knowledge', 'Questions', 'Difficulty'];
+                phaseName = stepNames[this.currentSessionStep] || 'Setup';
+            } else {
+                const screenNames = {
+                    'studyTimer': 'Study',
+                    'recall': 'Recall',
+                    'reflection': 'Reflect',
+                    'saveSession': 'Save'
+                };
+                phaseName = screenNames[this.currentScreen] || 'Session';
+            }
+
+            progressContainer.innerHTML = `
+                <div class="progress-section">
+                    <div class="progress-label">📚 ${phaseName}</div>
+                    <div class="progress-percentage">${currentStep}/${stepCount}</div>
+                </div>
+                <div class="progress-bar-track">
+                    <div class="progress-bar-fill" style="width: ${progressPercent}%"></div>
+                </div>
+                <div class="progress-steps">
+                    ${stepsHtml}
+                </div>
+            `;
+        } else {
+            progressContainer.style.display = 'none';
+        }
+    },
+
     // ========== RENDER ==========
     render() {
         const app = document.getElementById('app');
         let html = '';
+
+        // Reset step counter for non-createSession screens
+        if (this.currentScreen !== 'createSession') {
+            this.currentSessionStep = 0;
+        }
 
         switch (this.currentScreen) {
             case 'home':
@@ -51,6 +120,7 @@ const App = {
 
         app.innerHTML = html;
         this.updateFavicon();
+        this.updateProgressBar();
         
         // Add keyboard support for Enter key
         if (this.currentScreen === 'createSession') {
@@ -127,6 +197,10 @@ const App = {
     // ========== NAVIGATION ==========
     goToScreen(screen) {
         this.currentScreen = screen;
+        // Reset session step when starting a new session
+        if (screen === 'createSession') {
+            this.currentSessionStep = 0;
+        }
         this.render();
     },
 
@@ -141,6 +215,10 @@ const App = {
         }
 
         Audio.click();
+
+        // Update progress
+        this.currentSessionStep = currentIndex + 1;
+        this.updateProgressBar();
 
         // Hide current step
         document.getElementById(currentStep).classList.add('hidden');
@@ -157,6 +235,10 @@ const App = {
         const currentIndex = steps.indexOf(currentStep.id);
 
         if (currentIndex > 0) {
+            // Update progress
+            this.currentSessionStep = currentIndex - 1;
+            this.updateProgressBar();
+
             currentStep.classList.add('hidden');
             document.getElementById(steps[currentIndex - 1]).classList.remove('hidden');
         }
