@@ -436,6 +436,11 @@ const App = {
         this.render(); // Re-render to update the icon
     },
 
+    testAlarm() {
+        Audio.init();
+        Audio.chimeSuccess();
+    },
+
     completeWeakPoint() {
         const answer = document.getElementById('quickAnswer').value;
         if (!answer.trim()) {
