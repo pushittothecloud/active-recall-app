@@ -10,6 +10,7 @@ const App = {
 
     // ========== INITIALIZATION ==========
     init() {
+        Audio.init();
         this.render();
         this.updateFavicon();
         window.addEventListener('beforeunload', () => {

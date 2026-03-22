@@ -15,6 +15,11 @@ const Audio = {
         } catch (e) {
             console.log('Web Audio API not supported');
         }
+        
+        // Preload voices for speech synthesis
+        if ('speechSynthesis' in window) {
+            speechSynthesis.getVoices();
+        }
     },
 
     // Soft chime for timer end (gradually gets louder) with harmony
@@ -115,13 +120,24 @@ const Audio = {
             utterance.pitch = 1;
             utterance.volume = 1;
             
-            // Use the first available voice
+            // Wait for voices to load if they haven't yet
             const voices = speechSynthesis.getVoices();
+            console.log('Available voices:', voices.length);
+            
             if (voices.length > 0) {
-                utterance.voice = voices[0];
+                // Try to find an English voice, fallback to first voice
+                const englishVoice = voices.find(v => v.lang.includes('en')) || voices[0];
+                utterance.voice = englishVoice;
+                console.log('Using voice:', englishVoice.name);
             }
             
+            // Set up event listeners
+            utterance.onstart = () => console.log('Speech started');
+            utterance.onend = () => console.log('Speech ended');
+            utterance.onerror = (e) => console.log('Speech error:', e.error);
+            
             speechSynthesis.speak(utterance);
+            console.log('Speaking:', text);
         } catch (e) {
             console.log('Speech synthesis error:', e);
         }
