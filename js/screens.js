@@ -94,8 +94,6 @@ const Screens = {
                 </div>
             </div>
         `;
-            </div>
-        `;
     },
 
     // ========== CREATE SESSION ==========
