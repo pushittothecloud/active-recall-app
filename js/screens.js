@@ -271,6 +271,9 @@ const Screens = {
 
     // ========== REFLECTION ==========
     renderReflection() {
+        const weakPoints = Storage.getWeakPoints();
+        const hasWeakPoints = weakPoints.length > 0;
+        
         return `
             <div class="screen">
                 <div class="screen-header">
@@ -301,6 +304,28 @@ const Screens = {
                     <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: var(--spacing-sm);">
                         Examples: "What are the steps?" "Why does X happen?" "Define Y"
                     </p>
+                    
+                    ${hasWeakPoints ? `
+                        <div style="margin-bottom: var(--spacing-md);">
+                            <button 
+                                type="button"
+                                class="btn btn-tertiary btn-small" 
+                                onclick="this.parentElement.querySelector('.prev-weak-points').style.display = this.parentElement.querySelector('.prev-weak-points').style.display === 'none' ? 'block' : 'none'; this.textContent = (this.textContent.includes('Show') ? 'Hide' : 'Show') + ' previous weak points'"
+                                style="width: 100%; text-align: left; padding: var(--spacing-sm) var(--spacing-md);"
+                            >
+                                Show previous weak points (${weakPoints.length})
+                            </button>
+                            <div class="prev-weak-points" style="display: none; background: var(--light-bg); border-radius: 12px; padding: var(--spacing-md); margin-top: var(--spacing-sm); border-left: 4px solid var(--accent); max-height: 200px; overflow-y: auto;">
+                                ${weakPoints.map(point => `
+                                    <div style="padding: var(--spacing-sm); border-bottom: 1px solid var(--border-light); font-size: 0.9rem;">
+                                        <strong style="color: var(--primary);">From ${point.topic}:</strong>
+                                        <div style="color: var(--text-dark); margin-top: 0.25rem;">${point.question}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
                     <textarea 
                         id="nextQuestions" 
                         class="reflection-input" 
