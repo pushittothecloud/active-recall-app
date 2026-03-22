@@ -196,23 +196,6 @@ const Screens = {
                     </div>
                 </div>
 
-                <!-- Science Tips (Always Visible) with Tooltip -->
-                <div style="background: var(--light-bg); border-radius: 12px; padding: var(--spacing-md); border-left: 4px solid var(--primary);">
-                    <div style="display: flex; align-items: center;">
-                        <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600;">💡 How Recall Works</div>
-                        <div class="tooltip-wrapper" style="margin-left: auto;">
-                            <span class="tooltip-icon">?</span>
-                            <span class="tooltip-text">Actively recalling builds stronger memory than passive review.</span>
-                        </div>
-                    </div>
-                    <div style="display: flex; flex-direction: column; gap: var(--spacing-sm); font-size: 0.9rem; color: var(--text-dark); line-height: 1.5; margin-top: var(--spacing-sm);">
-                        <div>✓ Trying to recall strengthens memory more than rereading</div>
-                        <div>✓ The harder you struggle, the better it sticks</div>
-                        <div>✓ Getting it wrong builds better memory than easy reading</div>
-                        <div>✓ You'll revisit these later to lock them in</div>
-                    </div>
-                </div>
-
                 <div class="timer-controls">
                     <button class="btn btn-tertiary" onclick="App.pauseTimer()">⏸ Pause</button>
                     <button class="btn btn-tertiary" onclick="App.endSessionEarly()">⊗ End</button>
