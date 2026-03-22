@@ -351,7 +351,41 @@ const App = {
         clearInterval(this.timerInterval);
         localStorage.removeItem('timerRemaining');
         Audio.chimeSuccess();
-        this.goToScreen('recall');
+        
+        // Show completion message then navigate
+        setTimeout(() => {
+            this.showNotification('Study Complete, Start Recall');
+            setTimeout(() => {
+                this.goToScreen('recall');
+            }, 1500);
+        }, 500);
+    },
+
+    showNotification(message) {
+        const app = document.getElementById('app');
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            color: white;
+            padding: var(--spacing-lg);
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+            box-shadow: var(--shadow-lg);
+        `;
+        notification.textContent = message;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.animation = 'slideOut 0.3s ease-in';
+            setTimeout(() => notification.remove(), 300);
+        }, 1200);
     },
 
     // ========== RECALL PHASE ==========
