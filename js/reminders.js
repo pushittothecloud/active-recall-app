@@ -27,7 +27,7 @@ const Reminders = {
         const end = formatDate(endDate);
         
         const title = weakPointText 
-            ? `Study: ${weakPointText.split('\n').slice(0, 2).join(' • ')}`
+            ? `Study: ${weakPointText.split('\n').slice(0, 3).join(' • ')}`
             : `Study: ${topic}`;
         const description = weakPointText 
             ? `Weak points to review:\n${weakPointText}\n\nReviewing just before you forget makes memories last much longer.` 
