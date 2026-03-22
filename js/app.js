@@ -351,7 +351,11 @@ const App = {
         clearInterval(this.timerInterval);
         localStorage.removeItem('timerRemaining');
         Audio.chimeSuccess();
-        Audio.speak('Study complete, start recall');
+        
+        // Speak after alarm finishes (alarm is ~3.3 seconds)
+        setTimeout(() => {
+            Audio.speak('Study complete, start recall');
+        }, 3500);
         
         // Show completion message then navigate
         setTimeout(() => {
@@ -359,7 +363,7 @@ const App = {
             setTimeout(() => {
                 this.goToScreen('recall');
             }, 1500);
-        }, 500);
+        }, 3800);
     },
 
     showNotification(message) {
@@ -474,9 +478,15 @@ const App = {
     testAlarm() {
         Audio.init();
         Audio.chimeSuccess();
-        Audio.speak('Study complete, start recall');
         
-        this.showNotification('Study Complete, Start Recall');
+        // Speak after alarm finishes (alarm is ~3.3 seconds)
+        setTimeout(() => {
+            Audio.speak('Study complete, start recall');
+        }, 3500);
+        
+        setTimeout(() => {
+            this.showNotification('Study Complete, Start Recall');
+        }, 3800);
     },
 
     completeWeakPoint() {
