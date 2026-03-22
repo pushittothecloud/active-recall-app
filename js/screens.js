@@ -320,9 +320,6 @@ const Screens = {
         const session = Storage.getCurrentSession();
         const weakPointText = session.reflection?.nextQuestions || 'Weak points from this session';
         
-        console.log('renderSaveSession - session.reflection:', session.reflection);
-        console.log('renderSaveSession - weakPointText:', weakPointText);
-        
         return `
             <div class="screen">
                 <div class="screen-header">
@@ -333,7 +330,6 @@ const Screens = {
                 <div class="card mb-xl">
                     <div class="card-title">📝 Weak Points Saved</div>
                     <p class="card-text">You'll be reminded to revisit these</p>
-                    <p style="font-size: 0.8rem; color: #999; margin-top: 0.5rem;">Debug: ${weakPointText}</p>
                 </div>
 
                 <div class="card mb-xl">
