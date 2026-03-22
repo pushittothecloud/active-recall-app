@@ -494,12 +494,13 @@ body {
 
 .timer-controls {
     display: flex;
+    flex-wrap: wrap;
     gap: var(--spacing-sm);
     margin-top: auto;
 }
 
 .timer-controls .btn {
-    flex: 1;
+    flex: 1 1 calc(50% - var(--spacing-xs));
 }
 
 /* ========================================
