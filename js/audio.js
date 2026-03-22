@@ -97,6 +97,21 @@ const Audio = {
         this.soundEnabled = !this.soundEnabled;
         localStorage.setItem('soundEnabled', this.soundEnabled);
         return this.soundEnabled;
+    },
+
+    // Text-to-speech
+    speak(text) {
+        if (!this.soundEnabled) return;
+        
+        // Cancel any ongoing speech
+        speechSynthesis.cancel();
+        
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 1;
+        utterance.pitch = 1;
+        utterance.volume = 0.8;
+        
+        speechSynthesis.speak(utterance);
     }
 };
 

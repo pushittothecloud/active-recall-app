@@ -351,6 +351,7 @@ const App = {
         clearInterval(this.timerInterval);
         localStorage.removeItem('timerRemaining');
         Audio.chimeSuccess();
+        Audio.speak('Study complete, start recall');
         
         // Show completion message then navigate
         setTimeout(() => {
