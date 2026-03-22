@@ -474,6 +474,9 @@ const App = {
     testAlarm() {
         Audio.init();
         Audio.chimeSuccess();
+        Audio.speak('Study complete, start recall');
+        
+        this.showNotification('Study Complete, Start Recall');
     },
 
     completeWeakPoint() {
