@@ -30,9 +30,9 @@ const Audio = {
         osc.connect(gain);
         gain.connect(this.audioContext.destination);
         
-        // Ascending two-note chime
-        osc.frequency.setValueAtTime(800, now);
-        osc.frequency.setValueAtTime(1000, now + 0.2);
+        // Ascending two-note chime (lower pitch for gentler sound)
+        osc.frequency.setValueAtTime(523.25, now); // C5
+        osc.frequency.setValueAtTime(659.25, now + 0.2); // E5
         
         // Start quiet and gradually increase (crescendo)
         gain.gain.setValueAtTime(0.05, now);

@@ -197,7 +197,6 @@ const Screens = {
                 </div>
 
                 <div class="timer-controls">
-                    <button class="btn btn-tertiary" onclick="App.pauseTimer()">⏸ Pause</button>
                     <button class="btn btn-tertiary" onclick="App.endSessionEarly()">⊗ End</button>
                     <button class="btn btn-tertiary" onclick="App.skipToRecall()">→ Recall</button>
                     <button class="btn btn-tertiary" onclick="App.testAlarm()">🔔 Test Alarm</button>
