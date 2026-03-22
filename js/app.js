@@ -301,6 +301,8 @@ const App = {
         const missed = document.getElementById('missed').value;
         const nextQuestions = document.getElementById('nextQuestions').value;
 
+        console.log('saveReflection() called with nextQuestions:', nextQuestions);
+
         const reflection = {
             hardest,
             missed,
