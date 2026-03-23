@@ -184,7 +184,7 @@ const Screens = {
         const questions = session.targetQuestions.split('\n').filter(q => q.trim());
 
         return `
-            <div class="screen" style="justify-content: space-between; padding-bottom: var(--spacing-lg);">
+            <div class="screen">
                 <div>
                     <div class="timer-label">Study Time</div>
                     <div class="timer-display" id="timerDisplay">25:00</div>
@@ -202,7 +202,105 @@ const Screens = {
                     </div>
                 </div>
 
-                <div class="timer-controls">
+                <!-- Study Tips Section -->
+                <div style="border: 1px solid var(--border-light); border-radius: 12px; background: var(--card-bg);">
+                    <button 
+                        onclick="const content = this.nextElementSibling; const isOpen = content.style.display !== 'none'; content.style.display = isOpen ? 'none' : 'block'; this.querySelector('.toggle-icon').style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';"
+                        style="width: 100%; padding: var(--spacing-md); border: none; background: none; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; font-weight: 600; color: var(--text-dark);"
+                    >
+                        <span>🔍 Study Tips (Finding Answers)</span>
+                        <span class="toggle-icon" style="margin-left: auto; transition: transform 0.2s; display: inline-block;">▼</span>
+                    </button>
+                    <div style="display: none; padding: 0 var(--spacing-md) var(--spacing-md); font-size: 0.9rem; color: var(--text-dark); line-height: 1.6;">
+                        <div style="margin-bottom: var(--spacing-md);">
+                            <div style="font-weight: 600; color: var(--primary); margin-bottom: var(--spacing-sm);">✅ What to do</div>
+                            
+                            <div style="margin-bottom: var(--spacing-md); padding-left: var(--spacing-md);">
+                                <div style="font-weight: 500; margin-bottom: 0.5rem;">1. Start with reading (not just watching/listening)</div>
+                                <ul style="margin: 0 0 0.5rem 1rem; color: var(--text-muted);">
+                                    <li>Skim headings first</li>
+                                    <li>Read sections that match your question</li>
+                                    <li>Use videos only if something is confusing</li>
+                                </ul>
+                                <div style="font-size: 0.85rem; color: var(--accent);">📈 Effect: ~+20–40% better understanding vs passive watching → Booth (2007)</div>
+                            </div>
+
+                            <div style="margin-bottom: var(--spacing-md); padding-left: var(--spacing-md);">
+                                <div style="font-weight: 500; margin-bottom: 0.5rem;">2. Search in the right places</div>
+                                <div style="background: var(--bg-light); border-radius: 8px; padding: var(--spacing-sm); margin-bottom: 0.5rem; font-size: 0.85rem;">
+                                    <div style="font-weight: 600; margin-bottom: 0.5rem; color: var(--primary);">Best (start here):</div>
+                                    <div>📘 Textbooks / class materials</div>
+                                    <div>🧠 Lecture slides / notes</div>
+                                    <div style="margin-top: 0.5rem; font-weight: 600; color: var(--primary);">Good:</div>
+                                    <div>🌐 Wikipedia (quick understanding + overview)</div>
+                                    <div>📚 Educational sites (Khan Academy, etc.)</div>
+                                    <div style="margin-top: 0.5rem; font-weight: 600; color: var(--primary);">Use carefully:</div>
+                                    <div>🎥 YouTube (good for visuals, not always depth)</div>
+                                </div>
+                                <div style="font-size: 0.85rem; color: var(--accent);">👉 Start with Wikipedia to understand → then go deeper with better sources</div>
+                                <div style="font-size: 0.85rem; color: var(--accent); margin-top: 0.25rem;">📈 Effect: Better sources → +15–30% clearer mental models → Alhazmi (2024)</div>
+                            </div>
+
+                            <div style="margin-bottom: var(--spacing-md); padding-left: var(--spacing-md);">
+                                <div style="font-weight: 500; margin-bottom: 0.5rem;">3. Read actively, not passively</div>
+                                <div style="background: var(--bg-light); border-radius: 8px; padding: var(--spacing-sm); margin-bottom: 0.5rem; font-size: 0.85rem;">
+                                    <div style="margin-bottom: 0.25rem;">"Is this answering my question?"</div>
+                                    <div>"What part actually matters?"</div>
+                                </div>
+                                <div style="font-size: 0.85rem; color: var(--accent);">📈 Effect: Active engagement → +30–60% better retention/understanding → Dogani (2023)</div>
+                            </div>
+
+                            <div style="margin-bottom: var(--spacing-md); padding-left: var(--spacing-md);">
+                                <div style="font-weight: 500; margin-bottom: 0.5rem;">4. Pause and think before moving on</div>
+                                <ul style="margin: 0 0 0.5rem 1rem; color: var(--text-muted);">
+                                    <li>Stop when you find something useful</li>
+                                    <li>Make sure it makes sense</li>
+                                    <li>Don't just collect information—process it</li>
+                                </ul>
+                                <div style="font-size: 0.85rem; color: var(--accent);">📈 Effect: Processing vs skimming → ~+25–50% reduction in forgetting → Booth (2007)</div>
+                            </div>
+
+                            <div style="margin-bottom: var(--spacing-md); padding-left: var(--spacing-md);">
+                                <div style="font-weight: 500; margin-bottom: 0.5rem;">5. Use multiple sources (briefly)</div>
+                                <ul style="margin: 0 0 0.5rem 1rem; color: var(--text-muted);">
+                                    <li>If it doesn't click, switch explanations</li>
+                                    <li>Different wording helps understanding</li>
+                                </ul>
+                                <div style="font-size: 0.85rem; color: var(--accent);">📈 Effect: Multiple explanations → +15–35% comprehension gains → Alhazmi (2024)</div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: var(--spacing-md); padding-top: var(--spacing-md); border-top: 1px solid var(--border-light);">
+                            <div style="font-weight: 600; color: var(--primary); margin-bottom: var(--spacing-sm);">❌ What to avoid</div>
+                            
+                            <div style="margin-bottom: var(--spacing-md); padding-left: var(--spacing-md);">
+                                <div style="font-weight: 500; margin-bottom: 0.5rem;">1. Don't just watch videos start-to-finish</div>
+                                <div style="color: var(--text-muted); margin-bottom: 0.25rem;">Pause, skip, and search inside the video</div>
+                                <div style="font-size: 0.85rem; color: var(--accent);">📉 Effect: Passive watching → −20–50% learning efficiency → Patel et al. (2018)</div>
+                            </div>
+
+                            <div style="margin-bottom: var(--spacing-md); padding-left: var(--spacing-md);">
+                                <div style="font-weight: 500; margin-bottom: 0.5rem;">2. Don't scroll aimlessly</div>
+                                <div style="color: var(--text-muted); margin-bottom: 0.25rem;">Always tie what you're reading to your question</div>
+                                <div style="font-size: 0.85rem; color: var(--accent);">📉 Effect: No goal → ~−20–40% drop in retention → Dogani (2023)</div>
+                            </div>
+
+                            <div style="margin-bottom: var(--spacing-md); padding-left: var(--spacing-md);">
+                                <div style="font-weight: 500; margin-bottom: 0.5rem;">3. Don't use only one source</div>
+                                <div style="color: var(--text-muted); margin-bottom: 0.25rem;">If it's confusing, it's the explanation—not you</div>
+                                <div style="font-size: 0.85rem; color: var(--accent);">📉 Effect: Single-source confusion → −15–30% lower understanding → Alhazmi (2024)</div>
+                            </div>
+
+                            <div style="padding-left: var(--spacing-md);">
+                                <div style="font-weight: 500; margin-bottom: 0.5rem;">4. Don't multitask</div>
+                                <div style="color: var(--text-muted); margin-bottom: 0.25rem;">Stay focused on one question at a time</div>
+                                <div style="font-size: 0.85rem; color: var(--accent);">📉 Effect: Multitasking → −10–30% reduced learning quality → Marty-Dugas et al. (2024)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timer-controls" style="margin-top: auto;">
                     <button class="btn btn-tertiary" onclick="App.endSessionEarly()">⊗ End</button>
                     <button class="btn btn-tertiary" onclick="App.skipToRecall()">→ Recall</button>
                     <button class="btn btn-tertiary" onclick="App.testAlarm()">🔔 Test Alarm</button>
@@ -516,6 +614,7 @@ const Screens = {
     renderSaveSession() {
         const session = Storage.getCurrentSession();
         const weakPointText = session.reflection?.nextQuestions || 'Weak points from this session';
+        const weakPointLines = weakPointText.split('\n').filter(q => q.trim());
         
         return `
             <div class="screen">
@@ -527,6 +626,18 @@ const Screens = {
                 <div class="card mb-xl">
                     <div class="card-title">📝 Weak Points Saved</div>
                     <p class="card-text">You'll be reminded to revisit these</p>
+                    ${weakPointLines.length > 0 ? `
+                        <div style="margin-top: var(--spacing-md); background: var(--light-bg); border-radius: 8px; padding: var(--spacing-md); border-left: 4px solid var(--accent); max-height: 200px; overflow-y: auto;">
+                            ${weakPointLines.map(point => `
+                                <div style="padding: var(--spacing-sm) 0; font-size: 0.9rem; color: var(--text-dark); border-bottom: 1px solid var(--border-light);">
+                                    • ${point.trim()}
+                                </div>
+                            `).join('')}
+                        </div>
+                        <button class="btn btn-tertiary btn-small" onclick="App.copyWeakPointsToClipboard()" style="width: 100%; margin-top: var(--spacing-md);">
+                            📋 Copy to Clipboard
+                        </button>
+                    ` : ''}
                 </div>
 
                 <div class="card mb-xl">

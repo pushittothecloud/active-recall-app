@@ -488,6 +488,27 @@ const App = {
         this.goToScreen('home');
     },
 
+    copyWeakPointsToClipboard() {
+        const session = Storage.getCurrentSession();
+        if (!session || !session.reflection) return;
+
+        const weakPointText = session.reflection.nextQuestions || '';
+        const textToCopy = `Weak Points from "${session.topic}":\n\n${weakPointText}`;
+
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            alert('✅ Weak points copied to clipboard!');
+        }).catch(() => {
+            // Fallback for older browsers
+            const textarea = document.createElement('textarea');
+            textarea.value = textToCopy;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert('✅ Weak points copied to clipboard!');
+        });
+    },
+
     startNewSession() {
         this.goToScreen('createSession');
     },

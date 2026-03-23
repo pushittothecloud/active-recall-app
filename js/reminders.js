@@ -26,12 +26,18 @@ const Reminders = {
         const start = formatDate(startDate);
         const end = formatDate(endDate);
         
-        const title = weakPointText 
-            ? `Study: ${weakPointText.split('\n').slice(0, 3).join(' • ')}`
-            : `Study: ${topic}`;
-        const description = weakPointText 
-            ? `Weak points to review:\n${weakPointText}\n\nReviewing just before you forget makes memories last much longer.` 
-            : 'Recall what you studied earlier. Spaced reviews strengthen long-term memory.';
+        // Format weak points for title (first line only)
+        const weakPointLines = weakPointText ? weakPointText.split('\n').filter(q => q.trim()) : [];
+        const titleText = weakPointLines.length > 0 
+            ? weakPointLines[0].substring(0, 50) 
+            : topic;
+        const title = `🧠 Recall: ${titleText}`;
+        
+        // Format weak points for description (all lines)
+        const descriptionLines = weakPointText 
+            ? `Weak points to review:\n\n${weakPointLines.map(q => `• ${q.trim()}`).join('\n')}` 
+            : `Review weak points from: ${topic}`;
+        const description = `${descriptionLines}\n\nReviewing just before you forget makes memories last much longer.`;
         
         const params = new URLSearchParams({
             action: 'TEMPLATE',
