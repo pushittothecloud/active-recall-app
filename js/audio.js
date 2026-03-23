@@ -97,6 +97,39 @@ const Audio = {
         });
     },
 
+    // Celebration sound – triumphant rising tones
+    celebration() {
+        if (!this.soundEnabled || !this.audioContext) return;
+        
+        const now = this.audioContext.currentTime;
+        // Triumphant ascending chord progression
+        const sequences = [
+            [523.25, 659.25, 783.99], // C, E, G (major)
+            [587.33, 739.99, 880],    // D, F#, A (shifted up)
+            [659.25, 783.99, 987.77]  // E, G, B (even higher)
+        ];
+        
+        sequences.forEach((notes, seqIdx) => {
+            notes.forEach((freq, noteIdx) => {
+                const osc = this.audioContext.createOscillator();
+                const gain = this.audioContext.createGain();
+                
+                osc.connect(gain);
+                gain.connect(this.audioContext.destination);
+                
+                const startTime = now + seqIdx * 0.25 + noteIdx * 0.05;
+                
+                osc.frequency.setValueAtTime(freq, startTime);
+                gain.gain.setValueAtTime(0, startTime);
+                gain.gain.linearRampToValueAtTime(0.2, startTime + 0.05);
+                gain.gain.exponentialRampToValueAtTime(0.01, startTime + 0.4);
+                
+                osc.start(startTime);
+                osc.stop(startTime + 0.4);
+            });
+        });
+    },
+
     // Toggle audio
     toggle() {
         this.soundEnabled = !this.soundEnabled;

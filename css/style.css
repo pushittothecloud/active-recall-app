@@ -673,8 +673,8 @@ body {
 .tooltip-text {
     visibility: hidden;
     position: absolute;
-    z-index: 100;
-    bottom: 125%;
+    z-index: 1000;
+    top: 125%;
     left: 50%;
     transform: translateX(-50%);
     background: var(--text-dark);
@@ -695,11 +695,11 @@ body {
 .tooltip-text::after {
     content: '';
     position: absolute;
-    top: 100%;
+    bottom: 100%;
     left: 50%;
     transform: translateX(-50%);
     border: 6px solid transparent;
-    border-top-color: var(--text-dark);
+    border-bottom-color: var(--text-dark);
 }
 
 .tooltip-wrapper:hover .tooltip-text {
@@ -715,6 +715,128 @@ body {
 
 .label-with-tooltip .tooltip-wrapper {
     margin-left: auto;
+}
+
+/* ========================================
+   CELEBRATION SCREEN
+   ======================================== */
+
+.celebration-screen {
+    position: relative;
+}
+
+.confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.confetti {
+    position: fixed;
+    pointer-events: none;
+    font-size: 1.5rem;
+    opacity: 1;
+    animation: fall-confetti ease-in forwards;
+    z-index: 11;
+}
+
+@keyframes fall-confetti {
+    0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) translateX(100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes celebrate-pop {
+    0% {
+        transform: scale(0) rotate(-45deg);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+.celebration-suggestion {
+    background: linear-gradient(135deg, var(--light-bg) 0%, rgba(159, 139, 193, 0.05) 100%);
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+    padding: var(--spacing-lg);
+    animation: slide-up 0.5s ease-out;
+}
+
+.celebration-suggestion:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.celebration-suggestion:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.celebration-expandable {
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.celebration-expandable:hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-md);
+}
+
+.celebration-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    cursor: pointer;
+    user-select: none;
+}
+
+.celebration-content {
+    padding: 0 var(--spacing-lg) var(--spacing-lg) var(--spacing-lg);
+    border-top: 1px solid var(--border-light);
+    animation: expand-slide 0.3s ease-out;
+    max-height: 2000px;
+    overflow: auto;
+}
+
+@keyframes expand-slide {
+    from {
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+    }
+    to {
+        opacity: 1;
+        max-height: 2000px;
+    }
+}
+
+@keyframes slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ========================================

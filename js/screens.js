@@ -138,7 +138,13 @@ const Screens = {
 
                     <!-- Step 3: Target Questions -->
                     <div class="form-group hidden" id="stepQuestions">
-                        <label class="form-label">Write 3–5 questions you want to answer</label>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <label class="form-label" style="margin: 0;">Write 3–5 questions you want to answer</label>
+                            <div class="tooltip-wrapper">
+                                <span class="tooltip-icon">?</span>
+                                <span class="tooltip-text">Writing questions improves learning (+10–25%)<br><br>Answering or even guessing questions before studying improves later memory.<br><br>— Roediger & Karpicke (2006)</span>
+                            </div>
+                        </div>
                         <p class="form-hint">These are your retrieval targets</p>
                         <textarea 
                             class="form-textarea" 
@@ -212,6 +218,12 @@ const Screens = {
 
         return `
             <div class="screen">
+                <div style="background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%); color: white; padding: var(--spacing-lg); border-radius: 12px; margin-bottom: var(--spacing-lg);">
+                    <div style="font-weight: 700; margin-bottom: 0.5rem;">💭 This is the most important step</div>
+                    <div style="font-size: 0.95rem;">Memory boost: <strong>+50–150%</strong></div>
+                    <div style="font-size: 0.85rem; margin-top: 0.5rem; opacity: 0.95;">Actively recalling information strengthens memory far more than re-reading. — Roediger & Karpicke (2006), Karpicke & Blunt (2011)</div>
+                </div>
+
                 <div class="recall-header">
                     <div class="recall-header-title">NO NOTES</div>
                     <p style="margin-top: var(--spacing-xs); font-size: 0.9rem;">Recall from memory only</p>
@@ -220,6 +232,13 @@ const Screens = {
                 <div class="recall-section">
                     <label class="recall-label">Brain Dump</label>
                     <p class="screen-subtitle" style="margin-bottom: var(--spacing-md);">Write everything you remember</p>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <span style="font-size: 0.85rem; color: var(--accent); font-weight: 600;">Struggling improves retention (+20–40%) ⓘ</span>
+                        <div class="tooltip-wrapper" style="margin: 0;">
+                            <span class="tooltip-icon">?</span>
+                            <span class="tooltip-text">More effortful retrieval leads to stronger long-term memory.<br><br>— Bjork (Desirable Difficulties)</span>
+                        </div>
+                    </div>
                     <textarea 
                         class="form-textarea" 
                         id="brainDump" 
@@ -265,7 +284,13 @@ const Screens = {
                 </div>
 
                 <div class="reflection-item">
-                    <div class="reflection-prompt">What was hardest to remember?</div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <div class="reflection-prompt" style="margin: 0;">What was hardest to remember?</div>
+                        <div class="tooltip-wrapper">
+                            <span class="tooltip-icon">?</span>
+                            <span class="tooltip-text">Identify gaps in your knowledge (+10–25%)<br><br>Reflecting on errors and correcting misunderstandings improves learning.<br><br>— Metacognition research (Dunlosky et al., 2013)</span>
+                        </div>
+                    </div>
                     <textarea 
                         id="hardest" 
                         class="reflection-input" 
@@ -274,7 +299,13 @@ const Screens = {
                 </div>
 
                 <div class="reflection-item">
-                    <div class="reflection-prompt">What did you miss or misunderstand?</div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <div class="reflection-prompt" style="margin: 0;">What did you miss or misunderstand?</div>
+                        <div class="tooltip-wrapper">
+                            <span class="tooltip-icon">?</span>
+                            <span class="tooltip-text">Identify gaps in your knowledge (+10–25%)<br><br>Reflecting on errors and correcting misunderstandings improves learning.<br><br>— Metacognition research (Dunlosky et al., 2013)</span>
+                        </div>
+                    </div>
                     <textarea 
                         id="missed" 
                         class="reflection-input" 
@@ -283,7 +314,13 @@ const Screens = {
                 </div>
 
                 <div class="reflection-item">
-                    <div class="reflection-prompt">Turn 2–3 weak points into questions for next time</div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <div class="reflection-prompt" style="margin: 0;">Turn 2–3 weak points into questions for next time</div>
+                        <div class="tooltip-wrapper">
+                            <span class="tooltip-icon">?</span>
+                            <span class="tooltip-text">Turn gaps into questions (+15–30%)<br><br>Generating your own questions strengthens understanding and memory.<br><br>— Generation effect / elaborative interrogation</span>
+                        </div>
+                    </div>
                     <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: var(--spacing-sm);">
                         Examples: "What are the steps?" "Why does X happen?" "Define Y"
                     </p>
@@ -316,11 +353,163 @@ const Screens = {
                     ></textarea>
                 </div>
 
-                <button class="btn btn-primary" onclick="App.saveReflection(); App.goToScreen('saveSession')">
+                <button class="btn btn-primary" onclick="App.saveReflection(); App.goToScreen('celebration')">
                     Finish Session
                 </button>
             </div>
         `;
+    },
+
+    // ========== CELEBRATION ==========
+    renderCelebration() {
+        // Trigger celebratory effects
+        setTimeout(() => Audio.celebration(), 100);
+        this.createConfetti();
+        
+        return `
+            <div class="screen celebration-screen">
+                <div class="confetti-container" id="confettiContainer"></div>
+                
+                <div style="text-align: center; margin-top: 3rem; margin-bottom: 2rem;">
+                    <div style="font-size: 5rem; margin-bottom: 1rem; animation: celebrate-pop 0.6s ease-out;">
+                        🎉
+                    </div>
+                    <h1 class="screen-title" style="font-size: 2rem; margin-bottom: 0.5rem;">Nailed it!</h1>
+                    <p class="screen-subtitle" style="font-size: 1.1rem;">You did the hard part. Now lock it in.</p>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: var(--spacing-md); margin-bottom: 2rem;">
+                    
+                    <!-- Reward Section -->
+                    <div class="celebration-expandable" onclick="Screens.toggleCelebrationSection(this)" style="cursor: pointer;">
+                        <div class="celebration-header">
+                            <div style="display: flex; align-items: center; gap: 0.75rem; flex: 1;">
+                                <span style="font-size: 1.5rem;">🎉</span>
+                                <div style="text-align: left;">
+                                    <div style="font-size: 1.1rem; font-weight: 600; color: var(--text-dark);">Reward yourself</div>
+                                    <div style="font-size: 0.9rem; color: var(--accent); font-weight: 600;">Memory boost +5–15%</div>
+                                </div>
+                            </div>
+                            <span style="font-size: 1.2rem; transition: transform 0.3s;" class="toggle-icon">▼</span>
+                        </div>
+                        <div class="celebration-content" style="display: none;">
+                            <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-sm); margin-bottom: 1rem;">
+                                <button class="btn btn-tertiary btn-small" onclick="App.handleCelebrationAction('song'); event.stopPropagation();">🎵 Play song</button>
+                                <button class="btn btn-tertiary btn-small" onclick="App.handleCelebrationAction('snack'); event.stopPropagation();">🍕 Grab snack</button>
+                                <button class="btn btn-tertiary btn-small" onclick="App.handleCelebrationAction('stretch'); event.stopPropagation();">🤸 Stretch</button>
+                            </div>
+                            <div style="font-size: 0.85rem; color: var(--text-muted); background: var(--light-bg); padding: 1rem; border-radius: 8px; border-left: 3px solid var(--accent);">
+                                <p style="margin: 0 0 0.5rem 0; line-height: 1.5;">
+                                    Positive emotion and reward signals activate dopamine pathways that strengthen memory consolidation during sleep.
+                                </p>
+                                <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted); font-style: italic;">
+                                    LaBar & Cabeza (2006): The role of emotion in forming long-term memories
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Relax Section -->
+                    <div class="celebration-expandable" onclick="Screens.toggleCelebrationSection(this)" style="cursor: pointer;">
+                        <div class="celebration-header">
+                            <div style="display: flex; align-items: center; gap: 0.75rem; flex: 1;">
+                                <span style="font-size: 1.5rem;">🧘</span>
+                                <div style="text-align: left;">
+                                    <div style="font-size: 1.1rem; font-weight: 600; color: var(--text-dark);">Relax</div>
+                                    <div style="font-size: 0.9rem; color: var(--accent); font-weight: 600;">Memory boost +10–20%</div>
+                                </div>
+                            </div>
+                            <span style="font-size: 1.2rem; transition: transform 0.3s;" class="toggle-icon">▼</span>
+                        </div>
+                        <div class="celebration-content" style="display: none;">
+                            <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-sm); margin-bottom: 1rem;">
+                                <button class="btn btn-tertiary btn-small" onclick="App.handleCelebrationAction('quiet'); event.stopPropagation();">🪑 Sit quietly</button>
+                                <button class="btn btn-tertiary btn-small" onclick="App.handleCelebrationAction('walk'); event.stopPropagation();">🚶 Take a walk</button>
+                                <button class="btn btn-tertiary btn-small" onclick="App.handleCelebrationAction('breathe'); event.stopPropagation();">😌 Breathe</button>
+                            </div>
+                            <div style="font-size: 0.85rem; color: var(--text-muted); background: var(--light-bg); padding: 1rem; border-radius: 8px; border-left: 3px solid var(--accent);">
+                                <p style="margin: 0 0 0.5rem 0; line-height: 1.5;">
+                                    Rest and quiet wakefulness allow your brain to replay and consolidate memories. Avoiding new information during this period maximizes consolidation.
+                                </p>
+                                <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted); font-style: italic;">
+                                    Born et al. (2006): Sleep to remember • Walker & Stickgold (2006): Sleep, memory consolidation
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review Section -->
+                    <div class="celebration-expandable" onclick="Screens.toggleCelebrationSection(this)" style="cursor: pointer; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);">
+                        <div class="celebration-header" style="color: white;">
+                            <div style="display: flex; align-items: center; gap: 0.75rem; flex: 1;">
+                                <span style="font-size: 1.5rem;">🌙</span>
+                                <div style="text-align: left;">
+                                    <div style="font-size: 1.1rem; font-weight: 700; color: white;">Review tonight</div>
+                                    <div style="font-size: 0.95rem; color: rgba(255,255,255,0.9); font-weight: 600;">Memory boost +20–40%</div>
+                                </div>
+                            </div>
+                            <span style="font-size: 1.2rem; transition: transform 0.3s; color: white;" class="toggle-icon">▼</span>
+                        </div>
+                        <div class="celebration-content" style="display: none;">
+                            <div style="margin-bottom: 1rem;">
+                                <button class="btn btn-secondary" onclick="Reminders.setEveningRecallReminder(); event.stopPropagation();">
+                                    ⏰ Set reminder to recall
+                                </button>
+                            </div>
+                            <div style="font-size: 0.85rem; color: var(--text-muted); background: white; padding: 1rem; border-radius: 8px; border-left: 3px solid var(--accent);">
+                                <p style="margin: 0 0 0.5rem 0; line-height: 1.5;">
+                                    Retrieving memories before sleep increases consolidation. A single quick recall session hours before sleep increases long-term retention dramatically.
+                                </p>
+                                <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted); font-style: italic;">
+                                    Cepeda et al. (2006) • Walker & Stickgold (2006)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: var(--spacing-sm); padding-top: var(--spacing-md);">
+                    <button class="btn btn-primary" onclick="App.goToScreen('saveSession')">
+                        Continue to Reminders
+                    </button>
+                    <button class="btn btn-secondary" onclick="App.goToScreen('home')">
+                        Skip & Go Home
+                    </button>
+                </div>
+            </div>
+        `;
+    },
+
+    // Toggle celebration section expansion
+    toggleCelebrationSection(element) {
+        const content = element.querySelector('.celebration-content');
+        const icon = element.querySelector('.toggle-icon');
+        const isHidden = content.style.display === 'none';
+        
+        content.style.display = isHidden ? 'block' : 'none';
+        icon.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+    },
+
+    // Helper to create confetti effect
+    createConfetti() {
+        setTimeout(() => {
+            const container = document.getElementById('confettiContainer');
+            if (!container) return;
+            
+            const confettiPieces = 50;
+            const emojis = ['🎉', '⭐', '✨', '🌟', '💫', '🎊'];
+            
+            for (let i = 0; i < confettiPieces; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti';
+                piece.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                piece.style.left = Math.random() * 100 + '%';
+                piece.style.animationDelay = (Math.random() * 0.5) + 's';
+                piece.style.animationDuration = (2 + Math.random() * 2) + 's';
+                container.appendChild(piece);
+            }
+        }, 50);
     },
 
     // ========== SAVE SESSION ==========
@@ -352,8 +541,11 @@ const Screens = {
                         <div>
                             <label style="display: flex; align-items: center; gap: var(--spacing-sm); margin-bottom: var(--spacing-sm); font-weight: 500;">
                                 <input type="checkbox" id="reviewTomorrow" checked>
-                                <span style="flex: 1;">Tomorrow</span>
-                                <span style="font-size: 0.8rem; color: var(--text-muted); margin-right: 0.5rem;">Catch early forgetting</span>
+                                <span style="flex: 1;">Tomorrow — Reduce forgetting (+20–40%)</span>
+                                <div class="tooltip-wrapper">
+                                    <span class="tooltip-icon" style="margin: 0;">?</span>
+                                    <span class="tooltip-text">Reviewing soon after learning interrupts forgetting.<br><br>— Cepeda et al. (2006)</span>
+                                </div>
                             </label>
                             <button class="btn btn-secondary btn-small" onclick="Reminders.openCalendarLink('${session.topic}', 1, '${weakPointText.replace(/'/g, "\\'")}')">
                                 + Add to Google Calendar
@@ -362,8 +554,11 @@ const Screens = {
                         <div>
                             <label style="display: flex; align-items: center; gap: var(--spacing-sm); margin-bottom: var(--spacing-sm); font-weight: 500;">
                                 <input type="checkbox" id="review3Days" checked>
-                                <span style="flex: 1;">3 Days</span>
-                                <span style="font-size: 0.8rem; color: var(--text-muted); margin-right: 0.5rem;">Strengthen memory</span>
+                                <span style="flex: 1;">3 Days — Strengthen memory (+30–60%)</span>
+                                <div class="tooltip-wrapper">
+                                    <span class="tooltip-icon" style="margin: 0;">?</span>
+                                    <span class="tooltip-text">Spaced repetition improves long-term retention.<br><br>— Cepeda et al. (2006)</span>
+                                </div>
                             </label>
                             <button class="btn btn-secondary btn-small" onclick="Reminders.openCalendarLink('${session.topic}', 3, '${weakPointText.replace(/'/g, "\\'")}')">
                                 + Add to Google Calendar
@@ -372,8 +567,11 @@ const Screens = {
                         <div>
                             <label style="display: flex; align-items: center; gap: var(--spacing-sm); margin-bottom: var(--spacing-sm); font-weight: 500;">
                                 <input type="checkbox" id="review1Week" checked>
-                                <span style="flex: 1;">1 Week</span>
-                                <span style="font-size: 0.8rem; color: var(--text-muted); margin-right: 0.5rem;">Lock it in</span>
+                                <span style="flex: 1;">1 Week — Lock in long-term retention (+50–100%)</span>
+                                <div class="tooltip-wrapper">
+                                    <span class="tooltip-icon" style="margin: 0;">?</span>
+                                    <span class="tooltip-text">Longer spacing intervals maximize long-term memory consolidation.<br><br>— Cepeda et al. (2006)</span>
+                                </div>
                             </label>
                             <button class="btn btn-secondary btn-small" onclick="Reminders.openCalendarLink('${session.topic}', 7, '${weakPointText.replace(/'/g, "\\'")}')">
                                 + Add to Google Calendar

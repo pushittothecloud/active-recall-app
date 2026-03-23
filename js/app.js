@@ -109,6 +109,9 @@ const App = {
             case 'reflection':
                 html = Screens.renderReflection();
                 break;
+            case 'celebration':
+                html = Screens.renderCelebration();
+                break;
             case 'saveSession':
                 html = Screens.renderSaveSession();
                 break;
@@ -187,6 +190,7 @@ const App = {
             'studyTimer': '📚',
             'recall': '💭',
             'reflection': '🔍',
+            'celebration': '🎉',
             'saveSession': '✓',
             'quickRecall': '⚡',
         };
@@ -242,6 +246,34 @@ const App = {
 
             currentStep.classList.add('hidden');
             document.getElementById(steps[currentIndex - 1]).classList.remove('hidden');
+        }
+    },
+
+    // ========== CELEBRATION ACTIONS ==========
+    handleCelebrationAction(action) {
+        Audio.click();
+        
+        // Start a 5-minute timer for relax actions
+        if (['quiet', 'walk', 'breathe'].includes(action)) {
+            const minutes = 5;
+            alert(`🧘 Take ${minutes} minutes to relax.\n\nYou'll get a reminder when it's done.`);
+            
+            // Set a simple timeout-based notification (in production, use Web Notifications API)
+            setTimeout(() => {
+                alert(`✨ Nice! Your brain is replaying what you learned. Ready to continue?`);
+            }, minutes * 60 * 1000);
+            return;
+        }
+
+        // Quick feedback for reward actions
+        const messages = {
+            'song': '🎵 Enjoy your victory song!',
+            'snack': '🍕 You earned that snack!',
+            'stretch': '🤸 Great stretch! Your brain will thank you.'
+        };
+        
+        if (messages[action]) {
+            alert(messages[action]);
         }
     },
 

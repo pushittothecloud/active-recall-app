@@ -82,5 +82,38 @@ const Reminders = {
     openCalendarLink(topic, daysFromNow, weakPointText = '') {
         const url = this.generateCalendarLink(topic, daysFromNow, weakPointText);
         window.open(url, '_blank');
+    },
+
+    // Set evening recall reminder
+    setEveningRecallReminder() {
+        // Get today's date and set time to 8 PM (or next morning if past 8 PM)
+        const now = new Date();
+        const reminderTime = new Date();
+        reminderTime.setHours(20, 0, 0, 0); // 8 PM
+        
+        // If it's already past 8 PM, set for next morning at 9 AM instead
+        if (now > reminderTime) {
+            reminderTime.setDate(reminderTime.getDate() + 1);
+            reminderTime.setHours(9, 0, 0, 0);
+        }
+        
+        // Store reminder in localStorage
+        const currentSession = Storage.getCurrentSession();
+        if (currentSession) {
+            const reminder = {
+                sessionId: currentSession.id,
+                setTime: new Date().toISOString(),
+                reminderTime: reminderTime.toISOString(),
+                completed: false
+            };
+            
+            let reminders = JSON.parse(localStorage.getItem('eveningRecallReminders') || '[]');
+            reminders.push(reminder);
+            localStorage.setItem('eveningRecallReminders', JSON.stringify(reminders));
+            
+            // Show confirmation
+            const timeStr = reminderTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            alert(`✅ Reminder set for tonight at ${timeStr}\n\nYou'll recall what you learned before sleep—this is when long-term memory gets locked in.`);
+        }
     }
 };
