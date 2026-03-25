@@ -160,15 +160,7 @@ const App = {
                 });
             }
 
-            if (questions) {
-                questions.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter') {
-                        e.preventDefault();
-                        App.nextStep('stepQuestions');
-                        setTimeout(() => document.getElementById('predictedDifficulty')?.focus(), 100);
-                    }
-                });
-            }
+            // Questions textarea does not have Enter shortcut - users can press Tab to navigate
 
             if (difficulty) {
                 difficulty.addEventListener('keydown', (e) => {
@@ -482,7 +474,6 @@ const App = {
 
     // ========== SESSION COMPLETION ==========
     completeSession() {
-        this.saveReflection();
         Storage.incrementSessionCount();
         Audio.success();
         this.goToScreen('home');

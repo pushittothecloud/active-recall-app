@@ -54,37 +54,18 @@ const Screens = {
                         </button>
                     ` : ''}
 
-                    <!-- Science Principles with Tooltips -->
-                    <div style="background: var(--card-bg); border-radius: 12px; padding: var(--spacing-lg); border: 1px solid var(--border-light); box-shadow: var(--shadow-sm);">
-                        <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: var(--spacing-md); font-weight: 600;">🧠 Why This Works</div>
-                        <div style="display: flex; flex-direction: column; gap: var(--spacing-md); font-size: 0.9rem; color: var(--text-dark); line-height: 1.6;">
-                            <div style="display: flex; align-items: flex-start; gap: 0.5rem;">
-                                <div style="flex: 1;">
-                                    <strong style="color: var(--primary);">Recalling</strong> strengthens memory more than rereading—even if you get it wrong.
-                                </div>
-                                <div class="tooltip-wrapper">
-                                    <span class="tooltip-icon">?</span>
-                                    <span class="tooltip-text">Trying to recall strengthens memory more than rereading.</span>
-                                </div>
-                            </div>
-                            <div style="display: flex; align-items: flex-start; gap: 0.5rem;">
-                                <div style="flex: 1;">
-                                    <strong style="color: var(--primary);">Struggle</strong> improves retention. If it feels hard, you'll remember better.
-                                </div>
-                                <div class="tooltip-wrapper">
-                                    <span class="tooltip-icon">?</span>
-                                    <span class="tooltip-text">Effortful thinking helps information stick longer.</span>
-                                </div>
-                            </div>
-                            <div style="display: flex; align-items: flex-start; gap: 0.5rem;">
-                                <div style="flex: 1;">
-                                    <strong style="color: var(--primary);">Spacing</strong> matters. You'll revisit weak points later to lock them in.
-                                </div>
-                                <div class="tooltip-wrapper">
-                                    <span class="tooltip-icon">?</span>
-                                    <span class="tooltip-text">Study → recall → review later is the most effective pattern.</span>
-                                </div>
-                            </div>
+                    <!-- What is Active Recall? -->
+                    <div style="background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%); color: white; border-radius: 12px; padding: var(--spacing-lg); box-shadow: var(--shadow-sm);">
+                        <div style="font-size: 0.85rem; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: var(--spacing-sm); font-weight: 600;">What is Active Recall?</div>
+                        <p style="margin: 0 0 var(--spacing-sm) 0; font-size: 0.95rem; line-height: 1.6;">
+                            <strong>Active Recall</strong> means testing yourself on what you learned, without looking at the material. Instead of rereading notes, you force your brain to retrieve the information—which makes it stick far better.
+                        </p>
+                        <div style="background: rgba(255,255,255,0.15); padding: var(--spacing-sm); border-radius: 8px; margin-top: var(--spacing-sm); font-size: 0.85rem;">
+                            <div style="margin-bottom: 0.5rem;">❌ <strong>Passive:</strong> Read notes → highlight → reread</div>
+                            <div>✅ <strong>Active:</strong> Study → hide notes → write from memory → check answers</div>
+                        </div>
+                        <div style="margin-top: var(--spacing-md); font-size: 0.9rem; border-left: 3px solid rgba(255,255,255,0.5); padding-left: var(--spacing-sm);">
+                            <strong>The result:</strong> Active recall learners retain information 50–150% better than passive readers—not because they're smarter, but because their brain is working harder.
                         </div>
                     </div>
                 </div>
@@ -151,7 +132,7 @@ const Screens = {
                             id="targetQuestions" 
                             placeholder="Examples:&#10;- Explain how photosynthesis works&#10;- What are the steps?&#10;- Why does this matter?"
                         ></textarea>
-                        <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: var(--spacing-xs);">Press Enter to continue</div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: var(--spacing-xs);">Press Tab to move to next field</div>
                         <div style="display: flex; gap: 0.5rem;">
                             <button class="btn btn-tertiary" onclick="App.prevStep()">Back</button>
                             <button class="btn btn-primary" onclick="App.nextStep('stepQuestions')" style="flex: 2;">Continue</button>
@@ -211,90 +192,56 @@ const Screens = {
                         <span>🔍 Study Tips (Finding Answers)</span>
                         <span class="toggle-icon" style="margin-left: auto; transition: transform 0.2s; display: inline-block;">▼</span>
                     </button>
-                    <div style="display: none; padding: 0 var(--spacing-md) var(--spacing-md); font-size: 0.9rem; color: var(--text-dark); line-height: 1.6;">
-                        <div style="margin-bottom: var(--spacing-md);">
-                            <div style="font-weight: 600; color: var(--primary); margin-bottom: var(--spacing-sm);">✅ What to do</div>
+                    <div style="display: none; padding: var(--spacing-md); font-size: 0.9rem; color: var(--text-dark);">
+                        <!-- Do's Section -->
+                        <div style="margin-bottom: var(--spacing-lg);">
+                            <div style="font-weight: 600; color: var(--primary); margin-bottom: var(--spacing-md); font-size: 1rem;">✅ What to do</div>
                             
-                            <div style="margin-bottom: var(--spacing-md); padding-left: var(--spacing-md);">
-                                <div style="font-weight: 500; margin-bottom: 0.5rem;">1. Start with reading (not just watching/listening)</div>
-                                <ul style="margin: 0 0 0.5rem 1rem; color: var(--text-muted);">
-                                    <li>Skim headings first</li>
-                                    <li>Read sections that match your question</li>
-                                    <li>Use videos only if something is confusing</li>
-                                </ul>
-                                <div style="font-size: 0.85rem; color: var(--accent);">📈 Effect: ~+20–40% better understanding vs passive watching → Booth (2007)</div>
-                            </div>
-
-                            <div style="margin-bottom: var(--spacing-md); padding-left: var(--spacing-md);">
-                                <div style="font-weight: 500; margin-bottom: 0.5rem;">2. Search in the right places</div>
-                                <div style="background: var(--bg-light); border-radius: 8px; padding: var(--spacing-sm); margin-bottom: 0.5rem; font-size: 0.85rem;">
-                                    <div style="font-weight: 600; margin-bottom: 0.5rem; color: var(--primary);">Best (start here):</div>
-                                    <div>📘 Textbooks / class materials</div>
-                                    <div>🧠 Lecture slides / notes</div>
-                                    <div style="margin-top: 0.5rem; font-weight: 600; color: var(--primary);">Good:</div>
-                                    <div>🌐 Wikipedia (quick understanding + overview)</div>
-                                    <div>📚 Educational sites (Khan Academy, etc.)</div>
-                                    <div style="margin-top: 0.5rem; font-weight: 600; color: var(--primary);">Use carefully:</div>
-                                    <div>🎥 YouTube (good for visuals, not always depth)</div>
+                            <div style="display: flex; flex-direction: column; gap: var(--spacing-md);">
+                                <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: var(--spacing-sm); border-bottom: 1px solid var(--border-light);">
+                                    <span>Start with reading (not just watching)</span>
+                                    <span style="color: var(--accent); font-weight: 600; font-size: 0.95rem;">+20–40%</span>
                                 </div>
-                                <div style="font-size: 0.85rem; color: var(--accent);">👉 Start with Wikipedia to understand → then go deeper with better sources</div>
-                                <div style="font-size: 0.85rem; color: var(--accent); margin-top: 0.25rem;">📈 Effect: Better sources → +15–30% clearer mental models → Alhazmi (2024)</div>
-                            </div>
-
-                            <div style="margin-bottom: var(--spacing-md); padding-left: var(--spacing-md);">
-                                <div style="font-weight: 500; margin-bottom: 0.5rem;">3. Read actively, not passively</div>
-                                <div style="background: var(--bg-light); border-radius: 8px; padding: var(--spacing-sm); margin-bottom: 0.5rem; font-size: 0.85rem;">
-                                    <div style="margin-bottom: 0.25rem;">"Is this answering my question?"</div>
-                                    <div>"What part actually matters?"</div>
+                                <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: var(--spacing-sm); border-bottom: 1px solid var(--border-light);">
+                                    <span>Search in good sources first</span>
+                                    <span style="color: var(--accent); font-weight: 600; font-size: 0.95rem;">+15–30%</span>
                                 </div>
-                                <div style="font-size: 0.85rem; color: var(--accent);">📈 Effect: Active engagement → +30–60% better retention/understanding → Dogani (2023)</div>
-                            </div>
-
-                            <div style="margin-bottom: var(--spacing-md); padding-left: var(--spacing-md);">
-                                <div style="font-weight: 500; margin-bottom: 0.5rem;">4. Pause and think before moving on</div>
-                                <ul style="margin: 0 0 0.5rem 1rem; color: var(--text-muted);">
-                                    <li>Stop when you find something useful</li>
-                                    <li>Make sure it makes sense</li>
-                                    <li>Don't just collect information—process it</li>
-                                </ul>
-                                <div style="font-size: 0.85rem; color: var(--accent);">📈 Effect: Processing vs skimming → ~+25–50% reduction in forgetting → Booth (2007)</div>
-                            </div>
-
-                            <div style="margin-bottom: var(--spacing-md); padding-left: var(--spacing-md);">
-                                <div style="font-weight: 500; margin-bottom: 0.5rem;">5. Use multiple sources (briefly)</div>
-                                <ul style="margin: 0 0 0.5rem 1rem; color: var(--text-muted);">
-                                    <li>If it doesn't click, switch explanations</li>
-                                    <li>Different wording helps understanding</li>
-                                </ul>
-                                <div style="font-size: 0.85rem; color: var(--accent);">📈 Effect: Multiple explanations → +15–35% comprehension gains → Alhazmi (2024)</div>
+                                <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: var(--spacing-sm); border-bottom: 1px solid var(--border-light);">
+                                    <span>Read actively (engage with text)</span>
+                                    <span style="color: var(--accent); font-weight: 600; font-size: 0.95rem;">+30–60%</span>
+                                </div>
+                                <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: var(--spacing-sm); border-bottom: 1px solid var(--border-light);">
+                                    <span>Pause and think before moving on</span>
+                                    <span style="color: var(--accent); font-weight: 600; font-size: 0.95rem;">+25–50%</span>
+                                </div>
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span>Use multiple sources if stuck</span>
+                                    <span style="color: var(--accent); font-weight: 600; font-size: 0.95rem;">+15–35%</span>
+                                </div>
                             </div>
                         </div>
 
-                        <div style="margin-top: var(--spacing-md); padding-top: var(--spacing-md); border-top: 1px solid var(--border-light);">
-                            <div style="font-weight: 600; color: var(--primary); margin-bottom: var(--spacing-sm);">❌ What to avoid</div>
+                        <!-- Don'ts Section -->
+                        <div style="padding-top: var(--spacing-md); border-top: 1px solid var(--border-light);">
+                            <div style="font-weight: 600; color: var(--primary); margin-bottom: var(--spacing-md); font-size: 1rem;">❌ What to avoid</div>
                             
-                            <div style="margin-bottom: var(--spacing-md); padding-left: var(--spacing-md);">
-                                <div style="font-weight: 500; margin-bottom: 0.5rem;">1. Don't just watch videos start-to-finish</div>
-                                <div style="color: var(--text-muted); margin-bottom: 0.25rem;">Pause, skip, and search inside the video</div>
-                                <div style="font-size: 0.85rem; color: var(--accent);">📉 Effect: Passive watching → −20–50% learning efficiency → Patel et al. (2018)</div>
-                            </div>
-
-                            <div style="margin-bottom: var(--spacing-md); padding-left: var(--spacing-md);">
-                                <div style="font-weight: 500; margin-bottom: 0.5rem;">2. Don't scroll aimlessly</div>
-                                <div style="color: var(--text-muted); margin-bottom: 0.25rem;">Always tie what you're reading to your question</div>
-                                <div style="font-size: 0.85rem; color: var(--accent);">📉 Effect: No goal → ~−20–40% drop in retention → Dogani (2023)</div>
-                            </div>
-
-                            <div style="margin-bottom: var(--spacing-md); padding-left: var(--spacing-md);">
-                                <div style="font-weight: 500; margin-bottom: 0.5rem;">3. Don't use only one source</div>
-                                <div style="color: var(--text-muted); margin-bottom: 0.25rem;">If it's confusing, it's the explanation—not you</div>
-                                <div style="font-size: 0.85rem; color: var(--accent);">📉 Effect: Single-source confusion → −15–30% lower understanding → Alhazmi (2024)</div>
-                            </div>
-
-                            <div style="padding-left: var(--spacing-md);">
-                                <div style="font-weight: 500; margin-bottom: 0.5rem;">4. Don't multitask</div>
-                                <div style="color: var(--text-muted); margin-bottom: 0.25rem;">Stay focused on one question at a time</div>
-                                <div style="font-size: 0.85rem; color: var(--accent);">📉 Effect: Multitasking → −10–30% reduced learning quality → Marty-Dugas et al. (2024)</div>
+                            <div style="display: flex; flex-direction: column; gap: var(--spacing-md);">
+                                <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: var(--spacing-sm); border-bottom: 1px solid var(--border-light);">
+                                    <span>Watch videos passively start-to-finish</span>
+                                    <span style="color: var(--error, #ff6b6b); font-weight: 600; font-size: 0.95rem;">−20–50%</span>
+                                </div>
+                                <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: var(--spacing-sm); border-bottom: 1px solid var(--border-light);">
+                                    <span>Scroll aimlessly without a goal</span>
+                                    <span style="color: var(--error, #ff6b6b); font-weight: 600; font-size: 0.95rem;">−20–40%</span>
+                                </div>
+                                <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: var(--spacing-sm); border-bottom: 1px solid var(--border-light);">
+                                    <span>Rely on only one source</span>
+                                    <span style="color: var(--error, #ff6b6b); font-weight: 600; font-size: 0.95rem;">−15–30%</span>
+                                </div>
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span>Multitask while searching</span>
+                                    <span style="color: var(--error, #ff6b6b); font-weight: 600; font-size: 0.95rem;">−10–30%</span>
+                                </div>
                             </div>
                         </div>
                     </div>
