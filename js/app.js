@@ -13,9 +13,23 @@ const App = {
         Audio.init();
         this.render();
         this.updateFavicon();
+        this.setupFeedbackButton();
         window.addEventListener('beforeunload', () => {
             this.saveCurrentSession();
         });
+    },
+
+    // ========== FEEDBACK BUTTON ==========
+    setupFeedbackButton() {
+        const feedbackBtn = document.getElementById('feedbackBtn');
+        if (feedbackBtn) {
+            feedbackBtn.addEventListener('click', () => this.openFeedbackDialog());
+        }
+    },
+
+    openFeedbackDialog() {
+        const feedbackFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScXCcGFoLhoZKc7Nj210MZFfoTsoGAbmjzys_-ulwkk6QUnrg/viewform?usp=header';
+        window.open(feedbackFormUrl, '_blank');
     },
 
     // ========== PROGRESS BAR ==========
@@ -122,6 +136,7 @@ const App = {
         app.innerHTML = html;
         this.updateFavicon();
         this.updateProgressBar();
+        this.setupFeedbackButton();
         
         // Add keyboard support for Enter key
         if (this.currentScreen === 'createSession') {
